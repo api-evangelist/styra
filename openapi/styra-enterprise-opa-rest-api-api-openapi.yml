@@ -1,0 +1,208 @@
+openapi: 3.0.3
+info:
+  title: Enterprise OPA REST Batch Enterprise OPA REST API API
+  version: 0.2.0
+  contact:
+    name: Styra
+    url: https://github.com/StyraInc/enterprise-opa
+servers:
+- url: http://localhost:8181
+  description: Local development server
+security:
+- {}
+- bearerAuth: []
+tags:
+- name: Enterprise OPA REST API
+paths:
+  /:
+    post:
+      parameters:
+      - $ref: '#/components/parameters/pretty'
+      - $ref: '#/components/parameters/GzipAcceptEncoding'
+      summary: Execute the default decision  given an input
+      operationId: executeDefaultPolicyWithInput
+      x-speakeasy-usage-example: true
+      requestBody:
+        description: The input document
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/input'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessfulDefaultPolicyEvaluation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/PolicyNotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+      tags:
+      - Enterprise OPA REST API
+components:
+  parameters:
+    pretty:
+      name: pretty
+      description: If parameter is `true`, response will formatted for humans.
+      in: query
+      schema:
+        type: boolean
+    GzipAcceptEncoding:
+      name: Accept-Encoding
+      description: Indicates the server should respond with a gzip encoded body. The server will send the compressed response only if its length is above `server.encoding.gzip.min_length` value. See the configuration section
+      in: header
+      schema:
+        type: string
+        enum:
+        - gzip
+  headers:
+    GzipContentEncoding:
+      description: Indicates that the response body is gzip encoded
+      schema:
+        type: string
+        enum:
+        - gzip
+  schemas:
+    result:
+      description: The base or virtual document referred to by the URL path. If the path is undefined, this key will be omitted.
+      oneOf:
+      - type: boolean
+      - type: string
+      - type: number
+      - type: array
+        items: {}
+      - type: object
+        additionalProperties: true
+        example:
+          allow: true
+          user_is_admin: true
+          user_is_granted: []
+    ClientError:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+              location:
+                type: object
+                required:
+                - file
+                - row
+                - col
+                properties:
+                  file:
+                    type: string
+                  row:
+                    type: integer
+                  col:
+                    type: integer
+    ServerError:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+              location:
+                type: object
+                required:
+                - file
+                - row
+                - col
+                properties:
+                  file:
+                    type: string
+                  row:
+                    type: integer
+                  col:
+                    type: integer
+        decision_id:
+          type: string
+          example: b84cf736-213c-4932-a8e4-bb5c648f1b4d
+    input:
+      description: Arbitrary JSON used within your policies by accessing `input`
+      oneOf:
+      - type: boolean
+      - type: string
+      - type: number
+      - type: array
+        items: {}
+      - type: object
+        additionalProperties: true
+        example:
+          user: alice
+          action: read
+          object: id123
+          type: dog
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ClientError'
+    PolicyNotFound:
+      description: The policy at the specified location is undefined.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ClientError'
+    SuccessfulDefaultPolicyEvaluation:
+      description: 'Success.
+
+        Evaluating the default policy has the same response behavior as a successful policy evaluation, but with only the result as the response.
+
+        '
+      headers:
+        Content-Encoding:
+          $ref: '#/components/headers/GzipContentEncoding'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+    ServerError:
+      description: Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServerError'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+externalDocs:
+  description: Enterprise OPA documentation
+  url: https://docs.styra.com/enterprise-opa
+  x-openpolicyagent-documentation-url: https://www.openpolicyagent.org/docs/latest/

@@ -1,0 +1,41 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/StyraInc
+note: >-
+  Styra publishes Speakeasy-generated OPA / Enterprise OPA client SDKs in
+  TypeScript, Java, and C#. The OpenAPI at openapi/styra-enterprise-opa-openapi.yaml
+  is the source the SDKs are generated from. The `eopa` CLI is the Enterprise OPA
+  distribution binary (see cli/styra-cli.yml).
+packages:
+- language: javascript
+  registry: npm
+  name: "@styra/opa"
+  url: https://www.npmjs.com/package/@styra/opa
+  install: npm install @styra/opa
+  version: 1.7.10
+  source: https://github.com/StyraInc/opa-typescript
+  official: true
+  description: The Styra-supported driver to connect to Open Policy Agent (OPA) and Enterprise OPA deployments.
+- language: java
+  registry: maven-central
+  name: com.styra:opa
+  url: https://central.sonatype.com/artifact/com.styra/opa
+  install: 'implementation("com.styra:opa:2.0.3")'
+  version: 2.0.3
+  official: true
+  description: Styra-supported Java driver for Open Policy Agent (OPA) and Enterprise OPA.
+- language: csharp
+  registry: nuget
+  name: Styra.Opa
+  url: https://www.nuget.org/packages/Styra.Opa
+  install: dotnet add package Styra.Opa
+  official: true
+  description: Styra-supported .NET driver for Open Policy Agent (OPA) and Enterprise OPA.
+- language: go
+  registry: pkg.go.dev
+  name: github.com/StyraOSS/enterprise-opa
+  url: https://github.com/StyraOSS/enterprise-opa
+  install: brew install styrainc/packages/eopa
+  official: true
+  kind: cli-binary
+  description: Enterprise OPA (eopa) distribution binary of Open Policy Agent with enterprise features.

@@ -1,28 +1,177 @@
 aid: styra
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/styra.png
 name: Styra
-description: 'Styra is a company surfaced as a portfolio company of accel, battery-ventures and added
-  to the API Evangelist network as a stub for enrichment. Sector: cybersecurity. This profile is a lead
-  awaiting the enrichment pipeline.'
+description: >-
+  Styra is the company that created Open Policy Agent (OPA), the Cloud Native
+  Computing Foundation graduated policy engine, and commercialized it as Enterprise
+  OPA and Styra DAS (Declarative Authorization Service) for policy-as-code
+  authorization across Kubernetes, microservices, APIs, and data. Styra was acquired
+  by Akamai in December 2024; the styra.com and docs.styra.com properties no longer
+  resolve, but OPA remains the de facto standard for cloud-native authorization and
+  the open-source technical surface (GitHub, published SDKs, the OpenAPI spec, and
+  gRPC protobufs) is active. The Enterprise OPA / OPA REST API evaluates Rego policy
+  decisions, batch decisions, and partial-evaluation "data filtering" that compiles
+  authorization into UCAST or SQL conditions. Backed originally by Accel and Battery
+  Ventures.
 url: https://raw.githubusercontent.com/api-evangelist/styra/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - accel
 - battery-ventures
+x-acquired-by: akamai
 x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
 - Cybersecurity
-apis: []
+- Authorization
+- Policy as Code
+- Open Policy Agent
+- Access Control
+- Cloud Native
+- API Security
+apis:
+- aid: styra:styra-batch-api
+  name: Styra Batch API
+  description: The Batch API from Styra — 1 operation(s) for batch.
+  humanURL: https://www.openpolicyagent.org/docs/rest-api
+  baseURL: http://localhost:8181
+  tags:
+  - Batch
+  properties:
+  - type: OpenAPI
+    url: openapi/styra-batch-api-openapi.yml
+  - type: Documentation
+    url: https://www.openpolicyagent.org/docs
+  - type: APIReference
+    url: https://www.openpolicyagent.org/docs/rest-api
+- aid: styra:styra-compile-api
+  name: Styra Compile API
+  description: The Compile API from Styra — 1 operation(s) for compile.
+  humanURL: https://www.openpolicyagent.org/docs/rest-api
+  baseURL: http://localhost:8181
+  tags:
+  - Compile
+  properties:
+  - type: OpenAPI
+    url: openapi/styra-compile-api-openapi.yml
+  - type: Documentation
+    url: https://www.openpolicyagent.org/docs
+  - type: APIReference
+    url: https://www.openpolicyagent.org/docs/rest-api
+- aid: styra:styra-data-api
+  name: Styra Data API
+  description: The Data API from Styra — 1 operation(s) for data.
+  humanURL: https://www.openpolicyagent.org/docs/rest-api
+  baseURL: http://localhost:8181
+  tags:
+  - Data
+  properties:
+  - type: OpenAPI
+    url: openapi/styra-data-api-openapi.yml
+  - type: Documentation
+    url: https://www.openpolicyagent.org/docs
+  - type: APIReference
+    url: https://www.openpolicyagent.org/docs/rest-api
+- aid: styra:styra-enterprise-opa-rest-api-api
+  name: Styra Enterprise OPA REST API API
+  description: The Enterprise OPA REST API API from Styra — 1 operation(s) for enterprise opa rest api.
+  humanURL: https://www.openpolicyagent.org/docs/rest-api
+  baseURL: http://localhost:8181
+  tags:
+  - Enterprise OPA REST API
+  properties:
+  - type: OpenAPI
+    url: openapi/styra-enterprise-opa-rest-api-api-openapi.yml
+  - type: Documentation
+    url: https://www.openpolicyagent.org/docs
+  - type: APIReference
+    url: https://www.openpolicyagent.org/docs/rest-api
+- aid: styra:styra-health-api
+  name: Styra Health API
+  description: The Health API from Styra — 1 operation(s) for health.
+  humanURL: https://www.openpolicyagent.org/docs/rest-api
+  baseURL: http://localhost:8181
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/styra-health-api-openapi.yml
+  - type: Documentation
+    url: https://www.openpolicyagent.org/docs
+  - type: APIReference
+    url: https://www.openpolicyagent.org/docs/rest-api
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DeveloperPortal
+  url: https://www.openpolicyagent.org/docs
+- type: Documentation
+  url: https://www.openpolicyagent.org/docs
+- type: APIReference
+  url: https://www.openpolicyagent.org/docs/rest-api
+- type: GitHubOrganization
+  url: https://github.com/StyraOSS
+- type: Authentication
+  url: authentication/styra-authentication.yml
+- type: AgenticAccess
+  url: agentic-access/styra-agentic-access.yml
+- type: Packages
+  url: packages/styra-packages.yml
+- type: SDKs
+  url: packages/styra-packages.yml
+- type: CLI
+  url: cli/styra-cli.yml
+- type: MCPServer
+  url: mcp/styra-mcp.yml
+- type: LLMsTxt
+  url: llms/styra-llms.txt
+- type: Protobuf
+  name: Data service (gRPC)
+  url: grpc/styra-data-v1.proto
+- type: Protobuf
+  name: Bulk service (gRPC)
+  url: grpc/styra-bulk-v1-bulk.proto
+- type: Protobuf
+  name: Policy service (gRPC)
+  url: grpc/styra-policy-v1-policy.proto
+- type: Conformance
+  url: conformance/styra-conformance.yml
+- type: ErrorCatalog
+  url: errors/styra-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/styra-lifecycle.yml
+- type: Conventions
+  url: conventions/styra-conventions.yml
+- type: ChangeLog
+  url: changelog/styra-changelog.yml
+- type: DataModel
+  url: data-model/styra-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
 - type: Website
-  url: http://www.styra.com
+  url: https://www.openpolicyagent.org
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v1

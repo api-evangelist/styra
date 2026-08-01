@@ -1,0 +1,37 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/styra-enterprise-opa-openapi.yaml
+format: styra-code-message
+note: >-
+  Enterprise OPA / OPA does NOT use RFC 9457 application/problem+json. Errors use a
+  custom JSON envelope { code: string, message: string, errors: [ { code, message,
+  location: { file, row, col } } ] }. ServerError additionally carries a decision_id
+  for correlation with decision logs. Derived from OpenAPI 4xx/5xx responses.
+envelope:
+  media_type: application/json
+  fields:
+    code: string (machine-readable error code)
+    message: string (human-readable message)
+    errors: array of { code, message, location:{file,row,col} } (rego compile/parse errors)
+    decision_id: string (ServerError only; correlates to decision log event)
+problems:
+- status: 400
+  schema: BadRequest (ClientError)
+  title: Bad Request
+  description: The request or input document was malformed or the policy could not be parsed/compiled.
+  source_operation: openapi/styra-enterprise-opa-openapi.yaml#executePolicyWithInput
+- status: 404
+  schema: PolicyNotFound
+  title: Policy not found
+  description: The policy at the specified location is undefined.
+  source_operation: openapi/styra-enterprise-opa-openapi.yaml#executePolicy
+- status: 500
+  schema: ServerError
+  title: Server Error
+  description: An internal error occurred while evaluating the policy; includes decision_id for correlation.
+  source_operation: openapi/styra-enterprise-opa-openapi.yaml#executeDefaultPolicyWithInput
+- status: 500
+  schema: BatchServerError
+  title: Batch Server Error
+  description: Mixed success and failures across a batch request; per-item errors keyed by batch entry.
+  source_operation: openapi/styra-enterprise-opa-openapi.yaml#executeBatchPolicyWithInput

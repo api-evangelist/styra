@@ -1,0 +1,22 @@
+{
+  "provider": "styra",
+  "sources": [
+    "styra-batch-api-openapi.yml",
+    "styra-compile-api-openapi.yml",
+    "styra-data-api-openapi.yml",
+    "styra-enterprise-opa-rest-api-api-openapi.yml",
+    "styra-health-api-openapi.yml"
+  ],
+  "outputs": [
+    "styra-batch-api-openapi.yml",
+    "styra-compile-api-openapi.yml",
+    "styra-data-api-openapi.yml",
+    "styra-enterprise-opa-rest-api-api-openapi.yml",
+    "styra-health-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

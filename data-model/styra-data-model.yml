@@ -1,0 +1,40 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/styra-enterprise-opa-openapi.yaml
+note: >-
+  Derived from the Enterprise OPA / OPA REST API OpenAPI component schemas. OPA is a
+  policy-decision engine, so the "entities" are decision request/response documents
+  rather than persisted resources with id references.
+entities:
+- name: input
+  description: The JSON input document supplied to a policy evaluation.
+- name: result
+  description: The value of the queried policy decision (arbitrary JSON).
+- name: SuccessfulPolicyResponse
+  description: Wraps result plus optional metrics and decision_id.
+  relationships:
+  - has_one: result
+    via: result
+  - has_one: provenance
+    via: provenance
+- name: provenance
+  description: Provenance metadata (version, build/bundle info) about the OPA instance that produced the decision.
+- name: CompileOptions
+  description: Options controlling partial evaluation for the Compile (data filtering) API.
+- name: CompileResultUCAST
+  description: Partial-evaluation conditions expressed as UCAST (used for data filtering).
+- name: CompileResultSQL
+  description: Partial-evaluation conditions compiled to a SQL dialect (postgresql/mysql/sqlserver/sqlite).
+- name: CompileResultMultitarget
+  description: Compile result carrying multiple target representations at once.
+- name: MaskingRule
+  description: Rule describing fields to mask in Compile/data-filtering output.
+- name: BatchSuccessfulPolicyEvaluation
+  description: Map of batch entry id to per-entry SuccessfulPolicyResponse.
+  relationships:
+  - has_many: SuccessfulPolicyResponse
+    via: responses
+- name: ClientError
+  description: 4xx error envelope { code, message, errors[]{code,message,location} }.
+- name: ServerError
+  description: 5xx error envelope; adds decision_id for decision-log correlation.

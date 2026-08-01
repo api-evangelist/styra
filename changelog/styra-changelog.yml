@@ -1,0 +1,30 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/StyraOSS/enterprise-opa/releases
+scheme: semver
+current_version: v1.42.0
+note: >-
+  Enterprise OPA is released from GitHub with dated GitHub Releases. Each release
+  embeds a specific upstream OPA (open-policy-agent/opa) version and Regal version.
+entries:
+- version: v1.42.0
+  date: '2025-07-01'
+  breaking: false
+  highlights:
+  - Enterprise OPA now automatically enters licensed mode when connected to Styra DAS (no extra license required).
+  - Embedded OPA updated to v1.6.0; various dependency bumps.
+- version: v1.41.1
+  date: '2025-06-04'
+  breaking: false
+  highlights:
+  - Bugfix release; embedded OPA updated to v1.5.1 (relevant to the rego evaluation target).
+- version: v1.41.0
+  date: '2025-06-02'
+  breaking: false
+  highlights:
+  - Embedded OPA updated to v1.5.0; dependency bumps.
+- version: v1.40.0
+  date: '2025-05-01'
+  breaking: false
+  highlights:
+  - Security fix addressing CVE-2025-46569; embedded OPA updated to v1.4.0, Regal to v0.33.1.

@@ -1,0 +1,27 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/styra-enterprise-opa-openapi.yaml
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: openapi/styra-enterprise-opa-openapi.yaml is OpenAPI 3.0.3 (hand-crafted, drives Speakeasy SDKs)
+- id: oauth2
+  conforms: false
+  evidence: no oauth2 securityScheme; auth is HTTP bearer token (--authentication=token)
+- id: oidc
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: errors use a custom { code, message, errors[] } envelope, not application/problem+json
+- id: grpc
+  conforms: true
+  evidence: proto3 service definitions published (grpc/styra-data-v1.proto, styra-bulk-v1-bulk.proto, styra-policy-v1-policy.proto)
+- id: rego
+  conforms: true
+  evidence: policy language is Rego (Open Policy Agent); OPA is a CNCF graduated project
+- id: ucast
+  conforms: true
+  evidence: Compile API returns UCAST conditions (application/vnd.styra.ucast.*+json) for data filtering
+- id: sql-partial-eval
+  conforms: true
+  evidence: Compile API targets SQL dialects (postgresql, mysql, sqlserver, sqlite) via application/vnd.styra.sql.*+json

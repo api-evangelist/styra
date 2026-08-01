@@ -1,0 +1,26 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Styra Enterprise OPA REST API
+  version: 1.0.0
+extends: openapi/styra-enterprise-opa-openapi.yaml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: styra
+    x-apievangelist-note: >-
+      Styra was acquired by Akamai (Dec 2024); styra.com / docs.styra.com no longer
+      resolve. The live canonical reference is the Open Policy Agent REST API docs.
+    x-apievangelist-docs: https://www.openpolicyagent.org/docs/rest-api
+    x-apievangelist-github: https://github.com/StyraOSS/enterprise-opa
+- target: $.servers
+  update:
+  - url: http://localhost:8181
+    description: Self-hosted OPA / Enterprise OPA runtime (default port 8181)
+- target: $.info
+  update:
+    x-apievangelist-sdks:
+      javascript: "@styra/opa"
+      java: com.styra:opa
+      csharp: Styra.Opa
+    x-apievangelist-grpc: grpc/styra-data-v1.proto
+    x-apievangelist-auth: http-bearer (--authentication=token)

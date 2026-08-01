@@ -1,0 +1,29 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/StyraOSS/enterprise-opa
+note: >-
+  `eopa` is the Enterprise OPA CLI/server binary — a drop-in distribution of Open
+  Policy Agent with enterprise features. It shares OPA's command surface (run, eval,
+  test, build, fmt, parse) plus Enterprise OPA additions (data plugins, live data
+  filtering). The upstream `opa` CLI is the open-source equivalent.
+binary: eopa
+package_ref: packages/styra-packages.yml
+install:
+  homebrew: brew install styrainc/packages/eopa
+  docker: ghcr.io/styrainc/enterprise-opa
+  binary: https://github.com/StyraOSS/enterprise-opa/releases
+commands:
+- name: run
+  description: Start Enterprise OPA as an interactive shell or a server (`eopa run -s`) exposing the REST API on :8181.
+- name: eval
+  description: Evaluate a Rego query against data/policy from the command line.
+- name: test
+  description: Execute Rego unit tests.
+- name: build
+  description: Build an OPA bundle from policy and data.
+- name: fmt
+  description: Format Rego source files.
+- name: parse
+  description: Parse a Rego module and print the AST.
+- name: license
+  description: Manage the Enterprise OPA license.

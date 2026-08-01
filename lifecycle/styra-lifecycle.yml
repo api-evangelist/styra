@@ -1,0 +1,22 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/StyraOSS/enterprise-opa/releases
+note: >-
+  Styra was acquired by Akamai (Dec 2024); the styra.com / docs.styra.com web
+  surface no longer resolves. The OPA REST API is versioned via URI path (/v1/,
+  legacy /v0/); the OPA project (CNCF graduated) is the canonical spec. Enterprise
+  OPA is distributed from GitHub with dated GitHub Releases as the changelog.
+versioning:
+  scheme: uri-path
+  current: v1
+  legacy: v0
+  docs: https://www.openpolicyagent.org/docs/rest-api
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: /v0/data is the documented legacy path retained for webhooks; no formal RFC 8594 Sunset policy published.
+releases: https://github.com/StyraOSS/enterprise-opa/releases
+current_enterprise_opa_version: v1.42.0
+status_page: null
+status_page_note: No public status page (Enterprise OPA / OPA is self-hosted; there is no hosted control plane to monitor since styra.com retired).
+deprecated_operations: []

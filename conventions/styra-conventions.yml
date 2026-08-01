@@ -1,0 +1,39 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/styra-enterprise-opa-openapi.yaml
+docs: https://www.openpolicyagent.org/docs/rest-api
+authentication:
+  style: http-bearer
+  detail: 'Authorization: Bearer <token> when OPA is started with --authentication=token'
+  ref: authentication/styra-authentication.yml
+idempotency:
+  supported: false
+  note: >-
+    No Idempotency-Key header/parameter is documented. Policy evaluation is a POST but is
+    semantically side-effect-free (read-only decision), so retries are naturally safe;
+    there is no explicit idempotency-key contract.
+pagination:
+  supported: false
+  note: The evaluation/compile/health API surface returns single decision documents; no list pagination.
+versioning:
+  style: uri-path
+  detail: /v1/ current, /v0/ legacy (webhooks)
+  ref: lifecycle/styra-lifecycle.yml
+request_tracing:
+  field: decision_id
+  location: response body (SuccessfulPolicyResponse.decision_id, ServerError.decision_id)
+  detail: When decision logging is enabled, decision_id uniquely identifies the decision for correlation with decision logs.
+content_negotiation:
+  detail: >-
+    Compile API uses Accept media types to select the partial-evaluation target:
+    application/json, application/vnd.styra.ucast.{all,minimal,linq,prisma}+json, and
+    application/vnd.styra.sql.{postgresql,mysql,sqlserver,sqlite}+json.
+error_envelope:
+  shape: '{ code, message, errors[]{code,message,location{file,row,col}}, decision_id? }'
+  media_type: application/json
+  ref: errors/styra-problem-types.yml
+compression:
+  detail: 'Requests/responses support gzip (Content-Encoding / Accept-Encoding: gzip).'
+rate_limiting:
+  signaled: false
+  note: OPA is self-hosted; no gateway rate-limit headers are part of the documented API.

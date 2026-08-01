@@ -1,0 +1,12 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/styra-enterprise-opa-openapi.yaml
+skills:
+- file: styra-evaluate-policy-decision.md
+  name: Evaluate an authorization policy decision with OPA
+  api: openapi/styra-enterprise-opa-openapi.yaml
+  operations: [executePolicyWithInput, executeDefaultPolicyWithInput, executeBatchPolicyWithInput]
+- file: styra-data-filtering-compile.md
+  name: Push authorization down to the database with OPA data filtering
+  api: openapi/styra-enterprise-opa-openapi.yaml
+  operations: [compileQueryWithPartialEvaluation, health]

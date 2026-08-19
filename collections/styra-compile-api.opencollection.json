@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Enterprise OPA REST Batch Compile API",
+    "version": "0.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Compile",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Partially evaluate a query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8181/v1/compile/:path",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": ""
+              },
+              {
+                "name": "Content-Encoding",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "The path separator is used to access values inside object and array documents. If the path indexes into an array, the server will attempt to convert the array index to an integer. If the path element cannot be converted to an integer, the server will respond with 404."
+              },
+              {
+                "name": "pretty",
+                "value": "",
+                "type": "query",
+                "description": "If parameter is `true`, response will formatted for humans."
+              },
+              {
+                "name": "explain",
+                "value": "",
+                "type": "query",
+                "description": "Return query explanation in addition to result."
+              },
+              {
+                "name": "metrics",
+                "value": "",
+                "type": "query",
+                "description": "Return query performance metrics in addition to result."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Instrument query evaluation and return a superset of performance metrics in addition to result."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially evaluate a query"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

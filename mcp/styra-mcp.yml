@@ -2,11 +2,9 @@ generated: '2026-07-21'
 method: derived
 status: candidate
 source: openapi/styra-enterprise-opa-openapi.yaml
-note: >-
-  No official hosted/remote MCP server was found for Styra / Open Policy Agent as of
-  this pass. This is a DERIVED candidate tool list mapping the Enterprise OPA / OPA
-  REST API operations (openapi/styra-enterprise-opa-openapi.yaml) one tool per
-  operationId. Bearer-token auth (Authorization: Bearer <token>) applies to all tools.
+note: 'No official hosted/remote MCP server was found for Styra / Open Policy Agent as of this pass. This
+  is a DERIVED candidate tool list mapping the Enterprise OPA / OPA REST API operations (openapi/styra-enterprise-opa-openapi.yaml)
+  one tool per operationId. Bearer-token auth (Authorization: Bearer <token>) applies to all tools.'
 server:
   name: styra-opa
   transport: http
@@ -24,8 +22,15 @@ tools:
   description: Execute a policy against a batch of inputs in a single request.
   source_operation: openapi/styra-enterprise-opa-openapi.yaml#executeBatchPolicyWithInput
 - name: compile_query_with_partial_evaluation
-  description: Partially evaluate a query (data filtering / compile API), returning UCAST/SQL/multitarget conditions.
+  description: Partially evaluate a query (data filtering / compile API), returning UCAST/SQL/multitarget
+    conditions.
   source_operation: openapi/styra-enterprise-opa-openapi.yaml#compileQueryWithPartialEvaluation
 - name: health
   description: Verify the server is operational (optionally checking bundle activation and plugin state).
   source_operation: openapi/styra-enterprise-opa-openapi.yaml#health
+deployment:
+  mode: none
+  verified: derived
+  tools: 6
+  checked: '2026-08-12'
+  source: catalog MCP census

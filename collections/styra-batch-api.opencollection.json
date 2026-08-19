@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Enterprise OPA REST Batch API",
+    "version": "0.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Batch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute a policy given a batch of inputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8181/v1/batch/data/:path",
+            "headers": [
+              {
+                "name": "Content-Encoding",
+                "value": ""
+              },
+              {
+                "name": "Accept-Encoding",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "path",
+                "value": "",
+                "type": "path",
+                "description": "The path separator is used to access values inside object and array documents. If the path indexes into an array, the server will attempt to convert the array index to an integer. If the path element cannot be converted to an integer, the server will respond with 404."
+              },
+              {
+                "name": "pretty",
+                "value": "",
+                "type": "query",
+                "description": "If parameter is `true`, response will formatted for humans."
+              },
+              {
+                "name": "provenance",
+                "value": "",
+                "type": "query",
+                "description": "If parameter is true, response will include build/version info in addition to the result."
+              },
+              {
+                "name": "explain",
+                "value": "",
+                "type": "query",
+                "description": "Return query explanation in addition to result."
+              },
+              {
+                "name": "metrics",
+                "value": "",
+                "type": "query",
+                "description": "Return query performance metrics in addition to result."
+              },
+              {
+                "name": "instrument",
+                "value": "",
+                "type": "query",
+                "description": "Instrument query evaluation and return a superset of performance metrics in addition to result."
+              },
+              {
+                "name": "strict-builtin-errors",
+                "value": "",
+                "type": "query",
+                "description": "Treat built-in function call errors as fatal and return an error immediately."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute a policy given a batch of inputs"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

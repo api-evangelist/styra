@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Enterprise OPA REST Batch Enterprise OPA REST API API",
+    "version": "0.2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Enterprise OPA REST API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute the default decision  given an input",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8181/",
+            "headers": [
+              {
+                "name": "Accept-Encoding",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "pretty",
+                "value": "",
+                "type": "query",
+                "description": "If parameter is `true`, response will formatted for humans."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute the default decision  given an input"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

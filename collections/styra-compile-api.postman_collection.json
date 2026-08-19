@@ -1,0 +1,373 @@
+{
+  "item": [
+    {
+      "id": "9cc614ca-5c7a-44d3-9c76-8b43fc1a890e",
+      "name": "Compile",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "60856d55-16bb-41f9-92b3-bbc82bb36852",
+          "name": "Partially evaluate a query",
+          "request": {
+            "name": "Partially evaluate a query",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "compile",
+                ":path"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pretty",
+                  "value": "<boolean>",
+                  "description": "If parameter is `true`, response will formatted for humans."
+                },
+                {
+                  "disabled": false,
+                  "key": "explain",
+                  "value": "<string>",
+                  "description": "Return query explanation in addition to result."
+                },
+                {
+                  "disabled": false,
+                  "key": "metrics",
+                  "value": "<boolean>",
+                  "description": "Return query performance metrics in addition to result."
+                },
+                {
+                  "disabled": false,
+                  "key": "instrument",
+                  "value": "<boolean>",
+                  "description": "Instrument query evaluation and return a superset of performance metrics in addition to result."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "path",
+                  "description": "(Required) The path separator is used to access values inside object and array documents. If the path indexes into an array, the server will attempt to convert the array index to an integer. If the path element cannot be converted to an integer, the server will respond with 404."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Indicates the server should respond with a gzip encoded body. The server will send the compressed response only if its length is above `server.encoding.gzip.min_length` value. See the configuration section",
+                "key": "Accept-Encoding",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Indicates that the request body is gzip encoded",
+                "key": "Content-Encoding",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"options\": {\n    \"disableInlining\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"targetDialects\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"targetSQLTableMappings\": {\n      \"sqlserver\": {\n        \"key_0\": \"string\",\n        \"key_1\": 6052.145548017677,\n        \"key_2\": false,\n        \"key_3\": \"string\",\n        \"key_4\": 8362\n      },\n      \"mysql\": {\n        \"key_0\": 5575\n      },\n      \"postgresql\": {\n        \"key_0\": 8128,\n        \"key_1\": 6586\n      },\n      \"sqlite\": {\n        \"key_0\": 7596.791887757618\n      }\n    },\n    \"maskRule\": \"<string>\"\n  },\n  \"unknowns\": [\n    \"input\"\n  ],\n  \"input\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4a3bf68e-3208-4a4e-9143-d50aabd0fbb4",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "compile",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pretty",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "explain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "path",
+                      "description": "(Required) The path separator is used to access values inside object and array documents. If the path indexes into an array, the server will attempt to convert the array index to an integer. If the path element cannot be converted to an integer, the server will respond with 404."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Indicates the server should respond with a gzip encoded body. The server will send the compressed response only if its length is above `server.encoding.gzip.min_length` value. See the configuration section",
+                    "key": "Accept-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates that the request body is gzip encoded",
+                    "key": "Content-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"options\": {\n    \"disableInlining\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"targetDialects\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"targetSQLTableMappings\": {\n      \"sqlserver\": {\n        \"key_0\": \"string\",\n        \"key_1\": 2547\n      },\n      \"mysql\": {\n        \"key_0\": false,\n        \"key_1\": 3657.045501213604\n      },\n      \"postgresql\": {\n        \"key_0\": 9755,\n        \"key_1\": 1168.0852408765418\n      },\n      \"sqlite\": {\n        \"key_0\": \"string\",\n        \"key_1\": 1233\n      }\n    },\n    \"maskRule\": \"<string>\"\n  },\n  \"unknowns\": [\n    \"input\"\n  ],\n  \"input\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"result\": {\n    \"query\": {},\n    \"support\": {},\n    \"key_0\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "743c14ee-6cc4-4aa9-9280-14fa0507d3b2",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "compile",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pretty",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "explain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "path",
+                      "description": "(Required) The path separator is used to access values inside object and array documents. If the path indexes into an array, the server will attempt to convert the array index to an integer. If the path element cannot be converted to an integer, the server will respond with 404."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Indicates the server should respond with a gzip encoded body. The server will send the compressed response only if its length is above `server.encoding.gzip.min_length` value. See the configuration section",
+                    "key": "Accept-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates that the request body is gzip encoded",
+                    "key": "Content-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"options\": {\n    \"disableInlining\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"targetDialects\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"targetSQLTableMappings\": {\n      \"sqlserver\": {\n        \"key_0\": \"string\",\n        \"key_1\": 2547\n      },\n      \"mysql\": {\n        \"key_0\": false,\n        \"key_1\": 3657.045501213604\n      },\n      \"postgresql\": {\n        \"key_0\": 9755,\n        \"key_1\": 1168.0852408765418\n      },\n      \"sqlite\": {\n        \"key_0\": \"string\",\n        \"key_1\": 1233\n      }\n    },\n    \"maskRule\": \"<string>\"\n  },\n  \"unknowns\": [\n    \"input\"\n  ],\n  \"input\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"location\": {\n        \"file\": \"string\",\n        \"row\": 7903,\n        \"col\": 2754\n      }\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"location\": {\n        \"file\": \"string\",\n        \"row\": 1814,\n        \"col\": 1072\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17badba0-3182-4cac-b424-700cedddd592",
+              "name": "Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "compile",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pretty",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "explain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "path",
+                      "description": "(Required) The path separator is used to access values inside object and array documents. If the path indexes into an array, the server will attempt to convert the array index to an integer. If the path element cannot be converted to an integer, the server will respond with 404."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Indicates the server should respond with a gzip encoded body. The server will send the compressed response only if its length is above `server.encoding.gzip.min_length` value. See the configuration section",
+                    "key": "Accept-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates that the request body is gzip encoded",
+                    "key": "Content-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"options\": {\n    \"disableInlining\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"targetDialects\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"targetSQLTableMappings\": {\n      \"sqlserver\": {\n        \"key_0\": \"string\",\n        \"key_1\": 2547\n      },\n      \"mysql\": {\n        \"key_0\": false,\n        \"key_1\": 3657.045501213604\n      },\n      \"postgresql\": {\n        \"key_0\": 9755,\n        \"key_1\": 1168.0852408765418\n      },\n      \"sqlite\": {\n        \"key_0\": \"string\",\n        \"key_1\": 1233\n      }\n    },\n    \"maskRule\": \"<string>\"\n  },\n  \"unknowns\": [\n    \"input\"\n  ],\n  \"input\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"location\": {\n        \"file\": \"string\",\n        \"row\": 760,\n        \"col\": 1020\n      }\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"location\": {\n        \"file\": \"string\",\n        \"row\": 1806,\n        \"col\": 7382\n      }\n    }\n  ],\n  \"decision_id\": \"b84cf736-213c-4932-a8e4-bb5c648f1b4d\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8181",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "245b30a9-748a-4555-b519-d071ede03431",
+    "name": "Enterprise OPA REST Batch Compile API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Contact Support:\n Name: Styra",
+      "type": "text/plain"
+    }
+  }
+}

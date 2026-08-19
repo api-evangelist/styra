@@ -1,0 +1,516 @@
+{
+  "item": [
+    {
+      "id": "7a965997-b1af-4a89-bff2-445c191fc5d7",
+      "name": "Batch",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "962a7a49-3bd8-4d1d-b06f-59d525a529b0",
+          "name": "Execute a policy given a batch of inputs",
+          "request": {
+            "name": "Execute a policy given a batch of inputs",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "batch",
+                "data",
+                ":path"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pretty",
+                  "value": "<boolean>",
+                  "description": "If parameter is `true`, response will formatted for humans."
+                },
+                {
+                  "disabled": false,
+                  "key": "provenance",
+                  "value": "<boolean>",
+                  "description": "If parameter is true, response will include build/version info in addition to the result."
+                },
+                {
+                  "disabled": false,
+                  "key": "explain",
+                  "value": "<string>",
+                  "description": "Return query explanation in addition to result."
+                },
+                {
+                  "disabled": false,
+                  "key": "metrics",
+                  "value": "<boolean>",
+                  "description": "Return query performance metrics in addition to result."
+                },
+                {
+                  "disabled": false,
+                  "key": "instrument",
+                  "value": "<boolean>",
+                  "description": "Instrument query evaluation and return a superset of performance metrics in addition to result."
+                },
+                {
+                  "disabled": false,
+                  "key": "strict-builtin-errors",
+                  "value": "<boolean>",
+                  "description": "Treat built-in function call errors as fatal and return an error immediately."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "path",
+                  "description": "(Required) The path separator is used to access values inside object and array documents. If the path indexes into an array, the server will attempt to convert the array index to an integer. If the path element cannot be converted to an integer, the server will respond with 404."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Indicates that the request body is gzip encoded",
+                "key": "Content-Encoding",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Indicates the server should respond with a gzip encoded body. The server will send the compressed response only if its length is above `server.encoding.gzip.min_length` value. See the configuration section",
+                "key": "Accept-Encoding",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inputs\": {\n    \"key_0\": \"<boolean>\",\n    \"key_1\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e677cb4f-5973-4146-891a-62d70453a823",
+              "name": "All batched policy executions succeeded.\nThe server also returns 200 if the path refers to an undefined document. In this case, responses will be empty.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "batch",
+                    "data",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pretty",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "provenance",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "explain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "strict-builtin-errors",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "path",
+                      "description": "(Required) The path separator is used to access values inside object and array documents. If the path indexes into an array, the server will attempt to convert the array index to an integer. If the path element cannot be converted to an integer, the server will respond with 404."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Indicates that the request body is gzip encoded",
+                    "key": "Content-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates the server should respond with a gzip encoded body. The server will send the compressed response only if its length is above `server.encoding.gzip.min_length` value. See the configuration section",
+                    "key": "Accept-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"key_0\": \"<boolean>\",\n    \"key_1\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Indicates that the response body is gzip encoded",
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batch_decision_id\": \"1bef6b7d-cd13-4890-bfe1-fd2e8de32189\",\n  \"metrics\": {\n    \"key_0\": 6281,\n    \"key_1\": 5711.369548235243,\n    \"key_2\": 900.6667517217882\n  },\n  \"responses\": {\n    \"key_0\": {\n      \"result\": false,\n      \"metrics\": {\n        \"key_0\": false\n      },\n      \"decision_id\": \"string\",\n      \"provenance\": {\n        \"version\": \"string\",\n        \"build_commit\": \"string\",\n        \"build_timestamp\": \"1946-12-30T03:10:53.189Z\",\n        \"build_host\": \"string\",\n        \"bundles\": {\n          \"key_0\": {\n            \"revision\": \"string\"\n          },\n          \"key_1\": {\n            \"revision\": \"string\"\n          },\n          \"key_2\": {\n            \"revision\": \"string\"\n          },\n          \"key_3\": {\n            \"revision\": \"string\"\n          }\n        }\n      }\n    },\n    \"key_1\": {\n      \"result\": true,\n      \"metrics\": {\n        \"key_0\": 8108.537895566691,\n        \"key_1\": 3452,\n        \"key_2\": 6039.958855914468\n      },\n      \"decision_id\": \"string\",\n      \"provenance\": {\n        \"version\": \"string\",\n        \"build_commit\": \"string\",\n        \"build_timestamp\": \"1972-11-06T04:35:28.768Z\",\n        \"build_host\": \"string\",\n        \"bundles\": {\n          \"key_0\": {\n            \"revision\": \"string\"\n          }\n        }\n      }\n    },\n    \"key_2\": {\n      \"result\": true,\n      \"metrics\": {\n        \"key_0\": false,\n        \"key_1\": true\n      },\n      \"decision_id\": \"string\",\n      \"provenance\": {\n        \"version\": \"string\",\n        \"build_commit\": \"string\",\n        \"build_timestamp\": \"1958-04-12T12:06:38.596Z\",\n        \"build_host\": \"string\",\n        \"bundles\": {\n          \"key_0\": {\n            \"revision\": \"string\"\n          }\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42cbccbb-9862-4d45-add2-9def5caeaa16",
+              "name": "Mixed success and failures.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "batch",
+                    "data",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pretty",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "provenance",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "explain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "strict-builtin-errors",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "path",
+                      "description": "(Required) The path separator is used to access values inside object and array documents. If the path indexes into an array, the server will attempt to convert the array index to an integer. If the path element cannot be converted to an integer, the server will respond with 404."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Indicates that the request body is gzip encoded",
+                    "key": "Content-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates the server should respond with a gzip encoded body. The server will send the compressed response only if its length is above `server.encoding.gzip.min_length` value. See the configuration section",
+                    "key": "Accept-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"key_0\": \"<boolean>\",\n    \"key_1\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Multi-Status (WebDAV) (RFC 4918)",
+              "code": 207,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Indicates that the response body is gzip encoded",
+                  "key": "Content-Encoding",
+                  "value": "gzip"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batch_decision_id\": \"string\",\n  \"metrics\": {\n    \"key_0\": \"string\",\n    \"key_1\": true\n  },\n  \"responses\": {\n    \"key_0\": {\n      \"http_status_code\": \"string\",\n      \"result\": false,\n      \"metrics\": {\n        \"key_0\": 7168.532436163959\n      },\n      \"decision_id\": \"string\",\n      \"provenance\": {\n        \"version\": \"string\",\n        \"build_commit\": \"string\",\n        \"build_timestamp\": \"2022-04-05T08:55:48.036Z\",\n        \"build_host\": \"string\",\n        \"bundles\": {\n          \"key_0\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    },\n    \"key_1\": {\n      \"http_status_code\": \"string\",\n      \"result\": false,\n      \"metrics\": {\n        \"key_0\": \"string\",\n        \"key_1\": 9657\n      },\n      \"decision_id\": \"string\",\n      \"provenance\": {\n        \"version\": \"string\",\n        \"build_commit\": \"string\",\n        \"build_timestamp\": \"1980-05-31T10:35:46.010Z\",\n        \"build_host\": \"string\",\n        \"bundles\": {\n          \"key_0\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    },\n    \"key_2\": {\n      \"http_status_code\": \"string\",\n      \"result\": true,\n      \"metrics\": {\n        \"key_0\": 3439.7060993461027,\n        \"key_1\": false\n      },\n      \"decision_id\": \"string\",\n      \"provenance\": {\n        \"version\": \"string\",\n        \"build_commit\": \"string\",\n        \"build_timestamp\": \"2004-01-24T21:32:28.977Z\",\n        \"build_host\": \"string\",\n        \"bundles\": {\n          \"key_0\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_1\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_2\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e5c2e5c-6213-47c0-942e-e3d45d3d04c2",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "batch",
+                    "data",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pretty",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "provenance",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "explain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "strict-builtin-errors",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "path",
+                      "description": "(Required) The path separator is used to access values inside object and array documents. If the path indexes into an array, the server will attempt to convert the array index to an integer. If the path element cannot be converted to an integer, the server will respond with 404."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Indicates that the request body is gzip encoded",
+                    "key": "Content-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates the server should respond with a gzip encoded body. The server will send the compressed response only if its length is above `server.encoding.gzip.min_length` value. See the configuration section",
+                    "key": "Accept-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"key_0\": \"<boolean>\",\n    \"key_1\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"location\": {\n        \"file\": \"string\",\n        \"row\": 3840,\n        \"col\": 5854\n      }\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"location\": {\n        \"file\": \"string\",\n        \"row\": 7188,\n        \"col\": 8350\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6d1e765-707f-45f8-9473-72e0d0bef718",
+              "name": "Server Error. All requests returned a 500 error.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "batch",
+                    "data",
+                    ":path"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pretty",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "provenance",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "explain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "metrics",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "instrument",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "strict-builtin-errors",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "path",
+                      "description": "(Required) The path separator is used to access values inside object and array documents. If the path indexes into an array, the server will attempt to convert the array index to an integer. If the path element cannot be converted to an integer, the server will respond with 404."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "Indicates that the request body is gzip encoded",
+                    "key": "Content-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates the server should respond with a gzip encoded body. The server will send the compressed response only if its length is above `server.encoding.gzip.min_length` value. See the configuration section",
+                    "key": "Accept-Encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"key_0\": \"<boolean>\",\n    \"key_1\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batch_decision_id\": \"string\",\n  \"responses\": {\n    \"key_0\": {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"errors\": [\n        {\n          \"code\": \"string\",\n          \"message\": \"string\",\n          \"location\": {\n            \"file\": \"string\",\n            \"row\": 9582,\n            \"col\": 3439\n          }\n        },\n        {\n          \"code\": \"string\",\n          \"message\": \"string\",\n          \"location\": {\n            \"file\": \"string\",\n            \"row\": 5414,\n            \"col\": 7610\n          }\n        }\n      ],\n      \"decision_id\": \"b84cf736-213c-4932-a8e4-bb5c648f1b4d\"\n    },\n    \"key_1\": {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"errors\": [\n        {\n          \"code\": \"string\",\n          \"message\": \"string\",\n          \"location\": {\n            \"file\": \"string\",\n            \"row\": 5211,\n            \"col\": 4466\n          }\n        },\n        {\n          \"code\": \"string\",\n          \"message\": \"string\",\n          \"location\": {\n            \"file\": \"string\",\n            \"row\": 1272,\n            \"col\": 5557\n          }\n        }\n      ],\n      \"decision_id\": \"b84cf736-213c-4932-a8e4-bb5c648f1b4d\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8181",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "noauth"
+  },
+  "info": {
+    "_postman_id": "3afcd4c6-0c6d-4f63-bb8d-a90280030e15",
+    "name": "Enterprise OPA REST Batch API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Contact Support:\n Name: Styra",
+      "type": "text/plain"
+    }
+  }
+}

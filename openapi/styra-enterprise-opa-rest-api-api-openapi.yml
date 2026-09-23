@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Enterprise OPA REST Batch Enterprise OPA REST API API
+  title: Enterprise OPA REST API
   version: 0.2.0
   contact:
     name: Styra
@@ -19,7 +19,7 @@ paths:
       parameters:
       - $ref: '#/components/parameters/pretty'
       - $ref: '#/components/parameters/GzipAcceptEncoding'
-      summary: Execute the default decision  given an input
+      summary: Execute the default decision given an input
       operationId: executeDefaultPolicyWithInput
       x-speakeasy-usage-example: true
       requestBody:
@@ -41,43 +41,39 @@ paths:
       tags:
       - Enterprise OPA REST API
 components:
-  parameters:
-    pretty:
-      name: pretty
-      description: If parameter is `true`, response will formatted for humans.
-      in: query
-      schema:
-        type: boolean
-    GzipAcceptEncoding:
-      name: Accept-Encoding
-      description: Indicates the server should respond with a gzip encoded body. The server will send the compressed response only if its length is above `server.encoding.gzip.min_length` value. See the configuration section
-      in: header
-      schema:
-        type: string
-        enum:
-        - gzip
-  headers:
-    GzipContentEncoding:
-      description: Indicates that the response body is gzip encoded
-      schema:
-        type: string
-        enum:
-        - gzip
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ClientError'
+    PolicyNotFound:
+      description: The policy at the specified location is undefined.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ClientError'
+    SuccessfulDefaultPolicyEvaluation:
+      description: 'Success.
+
+        Evaluating the default policy has the same response behavior as a successful policy evaluation, but with only the result as the response.
+
+        '
+      headers:
+        Content-Encoding:
+          $ref: '#/components/headers/GzipContentEncoding'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+    ServerError:
+      description: Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServerError'
   schemas:
-    result:
-      description: The base or virtual document referred to by the URL path. If the path is undefined, this key will be omitted.
-      oneOf:
-      - type: boolean
-      - type: string
-      - type: number
-      - type: array
-        items: {}
-      - type: object
-        additionalProperties: true
-        example:
-          allow: true
-          user_is_admin: true
-          user_is_granted: []
     ClientError:
       type: object
       required:
@@ -113,6 +109,35 @@ components:
                     type: integer
                   col:
                     type: integer
+    result:
+      description: The base or virtual document referred to by the URL path. If the path is undefined, this key will be omitted.
+      oneOf:
+      - type: boolean
+      - type: string
+      - type: number
+      - type: array
+        items: {}
+      - type: object
+        additionalProperties: true
+        example:
+          allow: true
+          user_is_admin: true
+          user_is_granted: []
+    input:
+      description: Arbitrary JSON used within your policies by accessing `input`
+      oneOf:
+      - type: boolean
+      - type: string
+      - type: number
+      - type: array
+        items: {}
+      - type: object
+        additionalProperties: true
+        example:
+          user: alice
+          action: read
+          object: id123
+          type: dog
     ServerError:
       type: object
       required:
@@ -151,53 +176,28 @@ components:
         decision_id:
           type: string
           example: b84cf736-213c-4932-a8e4-bb5c648f1b4d
-    input:
-      description: Arbitrary JSON used within your policies by accessing `input`
-      oneOf:
-      - type: boolean
-      - type: string
-      - type: number
-      - type: array
-        items: {}
-      - type: object
-        additionalProperties: true
-        example:
-          user: alice
-          action: read
-          object: id123
-          type: dog
-  responses:
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ClientError'
-    PolicyNotFound:
-      description: The policy at the specified location is undefined.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ClientError'
-    SuccessfulDefaultPolicyEvaluation:
-      description: 'Success.
-
-        Evaluating the default policy has the same response behavior as a successful policy evaluation, but with only the result as the response.
-
-        '
-      headers:
-        Content-Encoding:
-          $ref: '#/components/headers/GzipContentEncoding'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-    ServerError:
-      description: Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ServerError'
+  parameters:
+    pretty:
+      name: pretty
+      description: If parameter is `true`, response will formatted for humans.
+      in: query
+      schema:
+        type: boolean
+    GzipAcceptEncoding:
+      name: Accept-Encoding
+      description: Indicates the server should respond with a gzip encoded body. The server will send the compressed response only if its length is above `server.encoding.gzip.min_length` value. See the configuration section
+      in: header
+      schema:
+        type: string
+        enum:
+        - gzip
+  headers:
+    GzipContentEncoding:
+      description: Indicates that the response body is gzip encoded
+      schema:
+        type: string
+        enum:
+        - gzip
   securitySchemes:
     bearerAuth:
       type: http

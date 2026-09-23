@@ -1,0 +1,27 @@
+# Front Door AI Index — styra — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: styra
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.openpolicyagent.org
+  final_host: www.openpolicyagent.org
+  ownership: own
+  owner: styra
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 2
+  host_score: 2
+  density: 2.55
+  words: 785
+  tiers:
+    agentic: 1
+    core: 1
+    model: 0
+  ambiguous: 6
+  top_terms:
+    agent: 6
+    AI agent: 1
+    AI: 1

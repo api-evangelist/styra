@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Enterprise OPA REST Batch Compile API
+  title: Enterprise OPA REST Compile API
   version: 0.2.0
   contact:
     name: Styra
@@ -185,37 +185,6 @@ paths:
       - Compile
 components:
   parameters:
-    pretty:
-      name: pretty
-      description: If parameter is `true`, response will formatted for humans.
-      in: query
-      schema:
-        type: boolean
-    GzipContentEncoding:
-      name: Content-Encoding
-      description: Indicates that the request body is gzip encoded
-      in: header
-      schema:
-        type: string
-        enum:
-        - gzip
-    instrument:
-      name: instrument
-      description: Instrument query evaluation and return a superset of performance metrics in addition to result.
-      in: query
-      schema:
-        type: boolean
-    explain:
-      name: explain
-      description: Return query explanation in addition to result.
-      in: query
-      schema:
-        type: string
-        enum:
-        - notes
-        - fails
-        - full
-        - debug
     policyPath:
       name: path
       in: path
@@ -240,114 +209,38 @@ components:
       in: query
       schema:
         type: boolean
-  responses:
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ClientError'
-    ServerError:
-      description: Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ServerError'
-  schemas:
-    CompileResultSQL:
-      type: object
-      description: The partially evaluated result of the query, in SQL format. Result will be empty if the query is never true.
-      properties:
-        result:
-          type: object
-          description: The partially evaluated result of the query as SQL.
-          additionalProperties: true
-          properties:
-            query:
-              type: string
-              description: String representing the SQL equivalent of the conditions under which the query is true.
-            masks:
-              type: object
-              description: Column masking functions, where the key is the column name, and the value describes which masking function to use.
-              additionalProperties:
-                $ref: '#/components/schemas/MaskingRule'
-    CompileResultUCAST:
-      type: object
-      description: The partially evaluated result of the query, in UCAST format. Result will be empty if the query is never true.
-      properties:
-        result:
-          type: object
-          description: The partially evaluated result of the query as UCAST.
-          additionalProperties: true
-          properties:
-            query:
-              type: object
-              description: UCAST JSON object describing the conditions under which the query is true.
-              additionalProperties: true
-            masks:
-              type: object
-              description: Column masking rules, where the key is the column name, and the value describes which masking function to use.
-              additionalProperties:
-                $ref: '#/components/schemas/MaskingRule'
-    CompileUnknowns:
-      type: array
-      description: The terms to treat as unknown during partial evaluation.
-      items:
+    GzipContentEncoding:
+      name: Content-Encoding
+      description: Indicates that the request body is gzip encoded
+      in: header
+      schema:
         type: string
-      default:
-      - input
-    ServerError:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        errors:
-          type: array
-          items:
-            type: object
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-              message:
-                type: string
-              location:
-                type: object
-                required:
-                - file
-                - row
-                - col
-                properties:
-                  file:
-                    type: string
-                  row:
-                    type: integer
-                  col:
-                    type: integer
-        decision_id:
-          type: string
-          example: b84cf736-213c-4932-a8e4-bb5c648f1b4d
-    MaskingRule:
-      type: object
-      additionalProperties:
-        oneOf:
-        - properties:
-            replace:
-              oneOf:
-              - type: boolean
-              - type: string
-              - type: number
-              - type: array
-                items: {}
-              - type: object
-                additionalProperties: true
+        enum:
+        - gzip
+    pretty:
+      name: pretty
+      description: If parameter is `true`, response will formatted for humans.
+      in: query
+      schema:
+        type: boolean
+    instrument:
+      name: instrument
+      description: Instrument query evaluation and return a superset of performance metrics in addition to result.
+      in: query
+      schema:
+        type: boolean
+    explain:
+      name: explain
+      description: Return query explanation in addition to result.
+      in: query
+      schema:
+        type: string
+        enum:
+        - notes
+        - fails
+        - full
+        - debug
+  schemas:
     CompileOptions:
       type: object
       description: Additional options to use during partial evaluation. Only the disableInlining option is currently supported in OPA. Enterprise OPA may support additional options.
@@ -390,56 +283,13 @@ components:
         maskRule:
           type: string
           description: The Rego rule to evaluate for generating column masks.
-    ClientError:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        errors:
-          type: array
-          items:
-            type: object
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-              message:
-                type: string
-              location:
-                type: object
-                required:
-                - file
-                - row
-                - col
-                properties:
-                  file:
-                    type: string
-                  row:
-                    type: integer
-                  col:
-                    type: integer
-    input:
-      description: Arbitrary JSON used within your policies by accessing `input`
-      oneOf:
-      - type: boolean
-      - type: string
-      - type: number
-      - type: array
-        items: {}
-      - type: object
-        additionalProperties: true
-        example:
-          user: alice
-          action: read
-          object: id123
-          type: dog
+    CompileUnknowns:
+      type: array
+      description: The terms to treat as unknown during partial evaluation.
+      items:
+        type: string
+      default:
+      - input
     CompileResultMultitarget:
       type: object
       description: The partially evaluated result of the query, for each target dialect. Result will be empty if the query is never true.
@@ -507,6 +357,143 @@ components:
                       description: Column masking rules, where the first two nested keys represent the table name and the column name, and the value describes which masking function to use.
                       additionalProperties:
                         $ref: '#/components/schemas/MaskingRule'
+    CompileResultSQL:
+      type: object
+      description: The partially evaluated result of the query, in SQL format. Result will be empty if the query is never true.
+      properties:
+        result:
+          type: object
+          description: The partially evaluated result of the query as SQL.
+          additionalProperties: true
+          properties:
+            query:
+              type: string
+              description: String representing the SQL equivalent of the conditions under which the query is true.
+            masks:
+              type: object
+              description: Column masking functions, where the key is the column name, and the value describes which masking function to use.
+              additionalProperties:
+                $ref: '#/components/schemas/MaskingRule'
+    MaskingRule:
+      type: object
+      additionalProperties:
+        oneOf:
+        - properties:
+            replace:
+              oneOf:
+              - type: boolean
+              - type: string
+              - type: number
+              - type: array
+                items: {}
+              - type: object
+                additionalProperties: true
+    ServerError:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+              location:
+                type: object
+                required:
+                - file
+                - row
+                - col
+                properties:
+                  file:
+                    type: string
+                  row:
+                    type: integer
+                  col:
+                    type: integer
+        decision_id:
+          type: string
+          example: b84cf736-213c-4932-a8e4-bb5c648f1b4d
+    CompileResultUCAST:
+      type: object
+      description: The partially evaluated result of the query, in UCAST format. Result will be empty if the query is never true.
+      properties:
+        result:
+          type: object
+          description: The partially evaluated result of the query as UCAST.
+          additionalProperties: true
+          properties:
+            query:
+              type: object
+              description: UCAST JSON object describing the conditions under which the query is true.
+              additionalProperties: true
+            masks:
+              type: object
+              description: Column masking rules, where the key is the column name, and the value describes which masking function to use.
+              additionalProperties:
+                $ref: '#/components/schemas/MaskingRule'
+    ClientError:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+              location:
+                type: object
+                required:
+                - file
+                - row
+                - col
+                properties:
+                  file:
+                    type: string
+                  row:
+                    type: integer
+                  col:
+                    type: integer
+    input:
+      description: Arbitrary JSON used within your policies by accessing `input`
+      oneOf:
+      - type: boolean
+      - type: string
+      - type: number
+      - type: array
+        items: {}
+      - type: object
+        additionalProperties: true
+        example:
+          user: alice
+          action: read
+          object: id123
+          type: dog
     CompileResultJSON:
       type: object
       description: The partially evaluated result of the query. Result will be empty if the query is never true.
@@ -520,6 +507,19 @@ components:
               type: object
             support:
               type: object
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ClientError'
+    ServerError:
+      description: Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServerError'
   securitySchemes:
     bearerAuth:
       type: http

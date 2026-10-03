@@ -32,6 +32,14 @@ paths:
       - Health
 components:
   parameters:
+    plugins:
+      name: plugins
+      in: query
+      description: Boolean parameter to account for plugin status in response.
+      required: false
+      schema:
+        type: boolean
+        default: false
     exclude-plugin:
       name: exclude-plugin
       in: query
@@ -50,27 +58,19 @@ components:
       schema:
         type: boolean
         default: false
-    plugins:
-      name: plugins
-      in: query
-      description: Boolean parameter to account for plugin status in response.
-      required: false
-      schema:
-        type: boolean
-        default: false
   responses:
-    UnhealthyServer:
-      description: OPA service is not healthy. If the bundles option is specified this can mean any of the configured bundles have not yet been activated. If the plugins option is specified then at least one plugin is in a non-OK state.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UnhealthyServer'
     HealthyServer:
       description: OPA service is healthy. If the bundles option is specified then all configured bundles have been activated. If the plugins option is specified then all plugins are in an OK state.
       content:
         application/json:
           schema:
             type: object
+    UnhealthyServer:
+      description: OPA service is not healthy. If the bundles option is specified this can mean any of the configured bundles have not yet been activated. If the plugins option is specified then at least one plugin is in a non-OK state.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UnhealthyServer'
   schemas:
     UnhealthyServer:
       type: object

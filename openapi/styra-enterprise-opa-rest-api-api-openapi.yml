@@ -41,7 +41,58 @@ paths:
       tags:
       - Enterprise OPA REST API
 components:
+  parameters:
+    pretty:
+      name: pretty
+      description: If parameter is `true`, response will formatted for humans.
+      in: query
+      schema:
+        type: boolean
+    GzipAcceptEncoding:
+      name: Accept-Encoding
+      description: Indicates the server should respond with a gzip encoded body. The server will send the compressed response only if its length is above `server.encoding.gzip.min_length` value. See the configuration section
+      in: header
+      schema:
+        type: string
+        enum:
+        - gzip
+  headers:
+    GzipContentEncoding:
+      description: Indicates that the response body is gzip encoded
+      schema:
+        type: string
+        enum:
+        - gzip
   schemas:
+    input:
+      description: Arbitrary JSON used within your policies by accessing `input`
+      oneOf:
+      - type: boolean
+      - type: string
+      - type: number
+      - type: array
+        items: {}
+      - type: object
+        additionalProperties: true
+        example:
+          user: alice
+          action: read
+          object: id123
+          type: dog
+    result:
+      description: The base or virtual document referred to by the URL path. If the path is undefined, this key will be omitted.
+      oneOf:
+      - type: boolean
+      - type: string
+      - type: number
+      - type: array
+        items: {}
+      - type: object
+        additionalProperties: true
+        example:
+          allow: true
+          user_is_admin: true
+          user_is_granted: []
     ServerError:
       type: object
       required:
@@ -80,35 +131,6 @@ components:
         decision_id:
           type: string
           example: b84cf736-213c-4932-a8e4-bb5c648f1b4d
-    result:
-      description: The base or virtual document referred to by the URL path. If the path is undefined, this key will be omitted.
-      oneOf:
-      - type: boolean
-      - type: string
-      - type: number
-      - type: array
-        items: {}
-      - type: object
-        additionalProperties: true
-        example:
-          allow: true
-          user_is_admin: true
-          user_is_granted: []
-    input:
-      description: Arbitrary JSON used within your policies by accessing `input`
-      oneOf:
-      - type: boolean
-      - type: string
-      - type: number
-      - type: array
-        items: {}
-      - type: object
-        additionalProperties: true
-        example:
-          user: alice
-          action: read
-          object: id123
-          type: dog
     ClientError:
       type: object
       required:
@@ -145,12 +167,6 @@ components:
                   col:
                     type: integer
   responses:
-    PolicyNotFound:
-      description: The policy at the specified location is undefined.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ClientError'
     ServerError:
       description: Server Error
       content:
@@ -176,28 +192,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ClientError'
-  parameters:
-    GzipAcceptEncoding:
-      name: Accept-Encoding
-      description: Indicates the server should respond with a gzip encoded body. The server will send the compressed response only if its length is above `server.encoding.gzip.min_length` value. See the configuration section
-      in: header
-      schema:
-        type: string
-        enum:
-        - gzip
-    pretty:
-      name: pretty
-      description: If parameter is `true`, response will formatted for humans.
-      in: query
-      schema:
-        type: boolean
-  headers:
-    GzipContentEncoding:
-      description: Indicates that the response body is gzip encoded
-      schema:
-        type: string
-        enum:
-        - gzip
+    PolicyNotFound:
+      description: The policy at the specified location is undefined.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ClientError'
   securitySchemes:
     bearerAuth:
       type: http

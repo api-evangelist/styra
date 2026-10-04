@@ -184,7 +184,126 @@ paths:
       tags:
       - Compile
 components:
+  parameters:
+    pretty:
+      name: pretty
+      description: If parameter is `true`, response will formatted for humans.
+      in: query
+      schema:
+        type: boolean
+    explain:
+      name: explain
+      description: Return query explanation in addition to result.
+      in: query
+      schema:
+        type: string
+        enum:
+        - notes
+        - fails
+        - full
+        - debug
+    policyPath:
+      name: path
+      in: path
+      description: The path separator is used to access values inside object and array documents. If the path indexes into an array, the server will attempt to convert the array index to an integer. If the path element cannot be converted to an integer, the server will respond with 404.
+      required: true
+      schema:
+        type: string
+        default: ''
+        format: urlPath
+        example: app/rbac
+    GzipContentEncoding:
+      name: Content-Encoding
+      description: Indicates that the request body is gzip encoded
+      in: header
+      schema:
+        type: string
+        enum:
+        - gzip
+    metrics:
+      name: metrics
+      description: Return query performance metrics in addition to result.
+      in: query
+      schema:
+        type: boolean
+    GzipAcceptEncoding:
+      name: Accept-Encoding
+      description: Indicates the server should respond with a gzip encoded body. The server will send the compressed response only if its length is above `server.encoding.gzip.min_length` value. See the configuration section
+      in: header
+      schema:
+        type: string
+        enum:
+        - gzip
+    instrument:
+      name: instrument
+      description: Instrument query evaluation and return a superset of performance metrics in addition to result.
+      in: query
+      schema:
+        type: boolean
   schemas:
+    input:
+      description: Arbitrary JSON used within your policies by accessing `input`
+      oneOf:
+      - type: boolean
+      - type: string
+      - type: number
+      - type: array
+        items: {}
+      - type: object
+        additionalProperties: true
+        example:
+          user: alice
+          action: read
+          object: id123
+          type: dog
+    CompileResultJSON:
+      type: object
+      description: The partially evaluated result of the query. Result will be empty if the query is never true.
+      properties:
+        result:
+          type: object
+          description: The partially evaluated result of the query.
+          additionalProperties: true
+          properties:
+            query:
+              type: object
+            support:
+              type: object
+    ClientError:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+              location:
+                type: object
+                required:
+                - file
+                - row
+                - col
+                properties:
+                  file:
+                    type: string
+                  row:
+                    type: integer
+                  col:
+                    type: integer
     ServerError:
       type: object
       required:
@@ -237,6 +356,48 @@ components:
                 items: {}
               - type: object
                 additionalProperties: true
+    CompileResultUCAST:
+      type: object
+      description: The partially evaluated result of the query, in UCAST format. Result will be empty if the query is never true.
+      properties:
+        result:
+          type: object
+          description: The partially evaluated result of the query as UCAST.
+          additionalProperties: true
+          properties:
+            query:
+              type: object
+              description: UCAST JSON object describing the conditions under which the query is true.
+              additionalProperties: true
+            masks:
+              type: object
+              description: Column masking rules, where the key is the column name, and the value describes which masking function to use.
+              additionalProperties:
+                $ref: '#/components/schemas/MaskingRule'
+    CompileResultSQL:
+      type: object
+      description: The partially evaluated result of the query, in SQL format. Result will be empty if the query is never true.
+      properties:
+        result:
+          type: object
+          description: The partially evaluated result of the query as SQL.
+          additionalProperties: true
+          properties:
+            query:
+              type: string
+              description: String representing the SQL equivalent of the conditions under which the query is true.
+            masks:
+              type: object
+              description: Column masking functions, where the key is the column name, and the value describes which masking function to use.
+              additionalProperties:
+                $ref: '#/components/schemas/MaskingRule'
+    CompileUnknowns:
+      type: array
+      description: The terms to treat as unknown during partial evaluation.
+      items:
+        type: string
+      default:
+      - input
     CompileOptions:
       type: object
       description: Additional options to use during partial evaluation. Only the disableInlining option is currently supported in OPA. Enterprise OPA may support additional options.
@@ -279,83 +440,6 @@ components:
         maskRule:
           type: string
           description: The Rego rule to evaluate for generating column masks.
-    ClientError:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        errors:
-          type: array
-          items:
-            type: object
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-              message:
-                type: string
-              location:
-                type: object
-                required:
-                - file
-                - row
-                - col
-                properties:
-                  file:
-                    type: string
-                  row:
-                    type: integer
-                  col:
-                    type: integer
-    CompileResultUCAST:
-      type: object
-      description: The partially evaluated result of the query, in UCAST format. Result will be empty if the query is never true.
-      properties:
-        result:
-          type: object
-          description: The partially evaluated result of the query as UCAST.
-          additionalProperties: true
-          properties:
-            query:
-              type: object
-              description: UCAST JSON object describing the conditions under which the query is true.
-              additionalProperties: true
-            masks:
-              type: object
-              description: Column masking rules, where the key is the column name, and the value describes which masking function to use.
-              additionalProperties:
-                $ref: '#/components/schemas/MaskingRule'
-    CompileUnknowns:
-      type: array
-      description: The terms to treat as unknown during partial evaluation.
-      items:
-        type: string
-      default:
-      - input
-    CompileResultSQL:
-      type: object
-      description: The partially evaluated result of the query, in SQL format. Result will be empty if the query is never true.
-      properties:
-        result:
-          type: object
-          description: The partially evaluated result of the query as SQL.
-          additionalProperties: true
-          properties:
-            query:
-              type: string
-              description: String representing the SQL equivalent of the conditions under which the query is true.
-            masks:
-              type: object
-              description: Column masking functions, where the key is the column name, and the value describes which masking function to use.
-              additionalProperties:
-                $ref: '#/components/schemas/MaskingRule'
     CompileResultMultitarget:
       type: object
       description: The partially evaluated result of the query, for each target dialect. Result will be empty if the query is never true.
@@ -423,90 +507,6 @@ components:
                       description: Column masking rules, where the first two nested keys represent the table name and the column name, and the value describes which masking function to use.
                       additionalProperties:
                         $ref: '#/components/schemas/MaskingRule'
-    input:
-      description: Arbitrary JSON used within your policies by accessing `input`
-      oneOf:
-      - type: boolean
-      - type: string
-      - type: number
-      - type: array
-        items: {}
-      - type: object
-        additionalProperties: true
-        example:
-          user: alice
-          action: read
-          object: id123
-          type: dog
-    CompileResultJSON:
-      type: object
-      description: The partially evaluated result of the query. Result will be empty if the query is never true.
-      properties:
-        result:
-          type: object
-          description: The partially evaluated result of the query.
-          additionalProperties: true
-          properties:
-            query:
-              type: object
-            support:
-              type: object
-  parameters:
-    metrics:
-      name: metrics
-      description: Return query performance metrics in addition to result.
-      in: query
-      schema:
-        type: boolean
-    GzipContentEncoding:
-      name: Content-Encoding
-      description: Indicates that the request body is gzip encoded
-      in: header
-      schema:
-        type: string
-        enum:
-        - gzip
-    explain:
-      name: explain
-      description: Return query explanation in addition to result.
-      in: query
-      schema:
-        type: string
-        enum:
-        - notes
-        - fails
-        - full
-        - debug
-    GzipAcceptEncoding:
-      name: Accept-Encoding
-      description: Indicates the server should respond with a gzip encoded body. The server will send the compressed response only if its length is above `server.encoding.gzip.min_length` value. See the configuration section
-      in: header
-      schema:
-        type: string
-        enum:
-        - gzip
-    instrument:
-      name: instrument
-      description: Instrument query evaluation and return a superset of performance metrics in addition to result.
-      in: query
-      schema:
-        type: boolean
-    pretty:
-      name: pretty
-      description: If parameter is `true`, response will formatted for humans.
-      in: query
-      schema:
-        type: boolean
-    policyPath:
-      name: path
-      in: path
-      description: The path separator is used to access values inside object and array documents. If the path indexes into an array, the server will attempt to convert the array index to an integer. If the path element cannot be converted to an integer, the server will respond with 404.
-      required: true
-      schema:
-        type: string
-        default: ''
-        format: urlPath
-        example: app/rbac
   responses:
     ServerError:
       description: Server Error

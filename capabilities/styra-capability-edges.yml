@@ -1,0 +1,37 @@
+slug: styra
+provider: Styra
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Batch
+  spec_file: styra-batch-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: POST /v1/batch/data/{path}  executeBatchPolicyWithInput  Execute a policy given a batch of
+    inputs
+  reason: Enterprise OPA evaluates authorization policy decisions (policy-as-code for APIs, services,
+    Kubernetes). Batch evaluation of authorization policy against inputs realises access-decision enforcement,
+    i.e. Identity & Access Management. Some ambiguity since the surface is a generic decision engine rather
+    than an IAM administration system, so confidence held below 0.8.
+- tag: Data
+  spec_file: styra-data-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: POST /v1/data/{path}  executePolicyWithInput  Execute a policy given an input
+  reason: Core authorization decision endpoint of the OPA policy engine; evaluating policy against an
+    input to return an allow/deny-style result is access control enforcement. Mapped to Identity & Access
+    Management with moderate confidence given the generic engine framing.

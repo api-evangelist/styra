@@ -7,14 +7,18 @@ front_door_ai:
   probed_at: '2026-09-17'
   host: www.openpolicyagent.org
   final_host: www.openpolicyagent.org
-  ownership: own
-  owner: styra
-  shares_host_with: null
+  ownership: shared
+  owner: open-policy-agent
+  shares_host_with:
+  - open-policy-agent
   inherited_from: null
+  alias_of: null
   verdict: scored
-  score: 2
+  score: null
+  band: null
+  band_label: null
   host_score: 2
-  density: 2.55
+  density: null
   words: 785
   tiers:
     agentic: 1

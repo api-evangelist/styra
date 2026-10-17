@@ -31,31 +31,6 @@ paths:
       tags:
       - Health
 components:
-  responses:
-    HealthyServer:
-      description: OPA service is healthy. If the bundles option is specified then all configured bundles have been activated. If the plugins option is specified then all plugins are in an OK state.
-      content:
-        application/json:
-          schema:
-            type: object
-    UnhealthyServer:
-      description: OPA service is not healthy. If the bundles option is specified this can mean any of the configured bundles have not yet been activated. If the plugins option is specified then at least one plugin is in a non-OK state.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/UnhealthyServer'
-  schemas:
-    UnhealthyServer:
-      type: object
-      required:
-      - code
-      properties:
-        code:
-          type: string
-        error:
-          type: string
-        message:
-          type: string
   parameters:
     plugins:
       name: plugins
@@ -83,6 +58,31 @@ components:
         default: []
         items:
           type: string
+  schemas:
+    UnhealthyServer:
+      type: object
+      required:
+      - code
+      properties:
+        code:
+          type: string
+        error:
+          type: string
+        message:
+          type: string
+  responses:
+    HealthyServer:
+      description: OPA service is healthy. If the bundles option is specified then all configured bundles have been activated. If the plugins option is specified then all plugins are in an OK state.
+      content:
+        application/json:
+          schema:
+            type: object
+    UnhealthyServer:
+      description: OPA service is not healthy. If the bundles option is specified this can mean any of the configured bundles have not yet been activated. If the plugins option is specified then at least one plugin is in a non-OK state.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UnhealthyServer'
   securitySchemes:
     bearerAuth:
       type: http

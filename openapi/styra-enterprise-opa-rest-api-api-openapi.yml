@@ -41,6 +41,38 @@ paths:
       tags:
       - Enterprise OPA REST API
 components:
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ClientError'
+    PolicyNotFound:
+      description: The policy at the specified location is undefined.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ClientError'
+    SuccessfulDefaultPolicyEvaluation:
+      description: 'Success.
+
+        Evaluating the default policy has the same response behavior as a successful policy evaluation, but with only the result as the response.
+
+        '
+      headers:
+        Content-Encoding:
+          $ref: '#/components/headers/GzipContentEncoding'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/result'
+    ServerError:
+      description: Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ServerError'
   parameters:
     pretty:
       name: pretty
@@ -56,14 +88,42 @@ components:
         type: string
         enum:
         - gzip
-  headers:
-    GzipContentEncoding:
-      description: Indicates that the response body is gzip encoded
-      schema:
-        type: string
-        enum:
-        - gzip
   schemas:
+    ClientError:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+              location:
+                type: object
+                required:
+                - file
+                - row
+                - col
+                properties:
+                  file:
+                    type: string
+                  row:
+                    type: integer
+                  col:
+                    type: integer
     input:
       description: Arbitrary JSON used within your policies by accessing `input`
       oneOf:
@@ -131,73 +191,13 @@ components:
         decision_id:
           type: string
           example: b84cf736-213c-4932-a8e4-bb5c648f1b4d
-    ClientError:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        errors:
-          type: array
-          items:
-            type: object
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-              message:
-                type: string
-              location:
-                type: object
-                required:
-                - file
-                - row
-                - col
-                properties:
-                  file:
-                    type: string
-                  row:
-                    type: integer
-                  col:
-                    type: integer
-  responses:
-    ServerError:
-      description: Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ServerError'
-    SuccessfulDefaultPolicyEvaluation:
-      description: 'Success.
-
-        Evaluating the default policy has the same response behavior as a successful policy evaluation, but with only the result as the response.
-
-        '
-      headers:
-        Content-Encoding:
-          $ref: '#/components/headers/GzipContentEncoding'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/result'
-    BadRequest:
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ClientError'
-    PolicyNotFound:
-      description: The policy at the specified location is undefined.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ClientError'
+  headers:
+    GzipContentEncoding:
+      description: Indicates that the response body is gzip encoded
+      schema:
+        type: string
+        enum:
+        - gzip
   securitySchemes:
     bearerAuth:
       type: http
